@@ -2,10 +2,9 @@ from flask import Flask
 import random
 import string
 
-app = Flask(__name__)
 
 class vars:
-    html_part = '''
+    html_code = '''
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="shortcut icon" href="https://www.lastpass.com/-/media/43c6c6862a08410a8ef34ab46a3a750b.ico">
         <title> Random password generator </title>
@@ -25,11 +24,15 @@ class vars:
         </div>
     '''
 
+
+app = Flask(__name__)
+
+
 @app.route('/', methods=['GET'])
 def home():
     password = generate_password()
-    html = vars.html_part.replace('password123', password)
-    return html  # password
+    html = vars.html_code.replace('password123', password)
+    return html
 
 
 @app.route('/api/', methods=['GET'])
