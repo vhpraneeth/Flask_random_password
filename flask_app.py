@@ -6,18 +6,23 @@ app = Flask(__name__)
 
 class vars:
     html_part = '''
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="shortcut icon" href="https://www.lastpass.com/-/media/43c6c6862a08410a8ef34ab46a3a750b.ico">
         <title> Random password generator </title>
         <script>
-            function myFunction() {
+          function myFunction() {
             var copyText = document.getElementById("myInput");
             copyText.select();
-            //copyText.setSelectionRange(0, 99999);
             document.execCommand("copy");
-            }
+          }
         </script>
-        <input type="text" value="password123" id="myInput">
-        <button onclick="myFunction()">Copy text</button>
-        <button id="reloadbutton"><a href="/">Reload</a></button>
+        <p onload="myFunction()"/>
+        <br/> <br/> <br/>
+        <div class="contentcontainer med left" style="margin-left: 200px;">
+          <input type="text" value="password123" id="myInput">
+          <button onclick="myFunction()" class="btn btn-success btn-lg">Copy text</button>
+          <a class="btn btn-outline-dark" href="/" role="button">Reload</a>
+        </div>
     '''
 
 @app.route('/', methods=['GET'])
@@ -55,4 +60,4 @@ def generate_password(minlen=15, minuchars=3, minlchars=3, minnumbers=3, min_oth
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(port=8080)
