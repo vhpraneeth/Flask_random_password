@@ -9,13 +9,14 @@ class vars:
         <link rel="shortcut icon" href="https://www.lastpass.com/-/media/43c6c6862a08410a8ef34ab46a3a750b.ico">
         <title> Random password generator </title>
         <script>
-          function myFunction() {
+          function copyText() {
+            // copy random password after button click
             var copyText = document.getElementById("myInput");
             copyText.select();
             document.execCommand("copy");
           }
         </script>
-        <p onload="myFunction()"/>
+        <p onload="copyText()"/>
         <br/> <br/> <br/>
         <div class="contentcontainer med left" style="margin-left: 200px;">
           <input type="text" value="password123" id="myInput">
