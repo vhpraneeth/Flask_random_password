@@ -1,6 +1,7 @@
 # Flask_random_password
 Flask random password generator along with API
-Simple and fast
+
+Simple and very fast
 
 Deployed links to access
 
