@@ -8,21 +8,25 @@ class vars:
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="shortcut icon" href="https://www.lastpass.com/-/media/43c6c6862a08410a8ef34ab46a3a750b.ico">
         <title> Random password generator </title>
-        <script>
-          function copyText() {
-            // copy random password after button click
-            var copyText = document.getElementById("myInput");
-            copyText.select();
-            document.execCommand("copy");
-          }
-        </script>
         <p onload="copyText()"/>
         <br/> <br/> <br/>
         <div class="contentcontainer med left" style="margin-left: 200px;">
-          <input type="text" value="password123" id="myInput">
-          <button onclick="myFunction()" class="btn btn-success btn-lg">Copy text</button>
+          <input type="text" value="password123" id="myInput" onfocus="copyText()">
+          <button type="submit" onclick="copyText()" class="btn btn-success btn-lg">Copy text</button>
           <a class="btn btn-outline-dark" href="/" role="button">Reload</a>
         </div>
+
+        <script>
+          function copyText() {
+            // copy random password after button click
+            myInput.select();
+            document.execCommand("copy");
+          }
+          myInput.addEventListener("keydown", function (e) {
+    		if (e.code === "Enter") // checks whether the pressed key is "Enter"
+        		copyText();
+		  });
+        </script>
     '''
 
 
@@ -56,11 +60,11 @@ def generate_password(minlen=15, minuchars=3, minlchars=3, minnumbers=3, min_oth
     if len(all_list)<minlen:
         diff = minlen - len(all_list)
         diff_list = random.sample(string.printable, diff)
-        passwd = all_list + diff_list
+        password = all_list + diff_list
     else:
-        passwd = all_list[:]
-    random.shuffle(passwd) #shuffle'em
-    return ''.join(passwd)
+        password = all_list[:]
+    random.shuffle(password)
+    return ''.join(password)
 
 
 if __name__ == '__main__':
