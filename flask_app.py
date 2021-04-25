@@ -4,7 +4,7 @@ import string
 
 
 class vars:
-    val = ''
+    var = ''
     html_code = '''
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="shortcut icon" href="https://www.lastpass.com/-/media/43c6c6862a08410a8ef34ab46a3a750b.ico">
@@ -48,20 +48,20 @@ def api():
 
 
 @app.route('/var/', methods=['GET', 'POST'])
-def var():
+def change_var():
     ' To store the value the user wants '
     try:
-        val = request.args.get('val')  # use /var?val=abcd to update file
+        var = request.args.get('var')  # use /var?var=abcd to update file
     except:
-        val = ''
-    if val:  # store value
-        if len(val) < 50:
-            vars.val = val
+        var = ''
+    if var:  # store value
+        if len(var) < 50:
+            vars.var = var
         else:
             return 'Text too long to store. Limit is 50'
     else:  # read value
-        val = vars.val
-    return val
+        var = vars.var
+    return var
 
 
 def generate_password(minlen=15, minuchars=3, minlchars=3, minnumbers=3, min_other=3):
