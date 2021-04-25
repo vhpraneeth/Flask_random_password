@@ -1,9 +1,10 @@
-from flask import Flask
+from flask import Flask, request
 import random
 import string
 
 
 class vars:
+    val = ''
     html_code = '''
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="shortcut icon" href="https://www.lastpass.com/-/media/43c6c6862a08410a8ef34ab46a3a750b.ico">
@@ -44,6 +45,23 @@ def home():
 def api():
     password = generate_password()
     return password
+
+
+@app.route('/var/', methods=['GET', 'POST'])
+def var():
+    ' To store the value the user wants '
+    try:
+        val = request.args.get('val')  # use /var?val=abcd to update file
+    except:
+        val = ''
+    if val:  # store value
+        if len(val) < 50:
+            vars.val = val
+        else:
+            return 'Text too long to store. Limit is 50'
+    else:  # read value
+        val = vars.val
+    return val
 
 
 def generate_password(minlen=15, minuchars=3, minlchars=3, minnumbers=3, min_other=3):
