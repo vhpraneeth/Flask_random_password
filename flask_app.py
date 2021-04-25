@@ -51,7 +51,7 @@ def api():
 def change_var():
     ' To store the value the user wants '
     try:
-        var = request.args.get('var')  # use /var?var=abcd to update file
+        var = request.args.get('var')  # use /var?var=abcd to update the stored value
     except:
         var = ''
     if var:  # store value
