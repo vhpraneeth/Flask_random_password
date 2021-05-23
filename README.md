@@ -14,7 +14,7 @@ Deployed links to access:
 [http://is.pythonanywhere.com/api/](http://is.pythonanywhere.com/api/)  -> Directly returns random password without HTML code
 
 
-[http://is.pythonanywhere.com/var/](http://is.pythonanywhere.com/var?var=)  -> To store any value
+[http://is.pythonanywhere.com/var/](http://is.pythonanywhere.com/var?var=abcd)  -> To store any value
 
 
 [http://is.pythonanywhere.com/var/](http://is.pythonanywhere.com/var/)  -> To get the last stored value
