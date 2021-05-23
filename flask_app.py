@@ -34,17 +34,57 @@ class vars:
 app = Flask(__name__)
 
 
+'''def generate_password(minlen=15, minuchars=3, minlchars=3, minnumbers=3, min_other=3):
+    # random sample lists for each char type  if 1:
+    uc_list = random.sample(string.ascii_uppercase, minuchars)
+    lc_list = random.sample(string.ascii_lowercase, minlchars)
+    n_list = random.sample(string.digits, minnumbers)
+    other_chars = string.printable[:-5]
+    others_list = random.sample(other_chars, min_other)
+    all_list = uc_list + lc_list + n_list + others_list
+    unwanted_chars = ['\t', '\\']
+    for char in unwanted_chars:
+        if char in all_list:
+            all_list.remove('\t')
+    #if total chars is less than min len, full with printables
+    if len(all_list)<minlen:
+        diff = minlen - len(all_list)
+        diff_list = random.sample(string.printable, diff)
+        password = all_list + diff_list
+    else:
+        password = all_list[:]
+    random.shuffle(password)
+    password = ''.join(password)
+    return password'''
+
+
+def generate_password(minlen=14, minuchars=3, minlchars=3, minnumbers=3, min_other=6):
+    # if 1:
+    uc_list = random.sample(string.ascii_uppercase, minuchars)
+    lc_list = random.sample(string.ascii_lowercase, minlchars)
+    n_list = random.sample(string.digits, minnumbers)
+    other_chars = string.printable[:-5]
+    others_list = random.sample(other_chars, min_other)
+    password = uc_list + lc_list + n_list + others_list
+    unwanted_chars = ['\t']  # '\\'
+    for char in unwanted_chars:
+        if char in password:
+            password.remove(char)
+    while len(password) < minlen:
+        password.append(random.choice(other_chars))
+    random.shuffle(password)
+    password = ''.join(password)
+    return password
+
+
 @app.route('/', methods=['GET'])
 def home():
-    password = generate_password()
-    html = vars.html_code.replace('password123', password)
-    return html
+    return vars.html_code.replace('password123', generate_password())
 
 
 @app.route('/api/', methods=['GET'])
 def api():
-    password = generate_password()
-    return password
+    return generate_password()
 
 
 @app.route('/var/', methods=['GET', 'POST'])
@@ -62,27 +102,6 @@ def change_var():
     else:  # read value
         var = vars.var
     return var
-
-
-def generate_password(minlen=15, minuchars=3, minlchars=3, minnumbers=3, min_other=3):
-    # random sample lists for each char type
-    other_chars = string.printable[:-5]
-    other_chars = other_chars.replace('\\', '')
-    uc_list = random.sample(string.ascii_uppercase, minuchars)
-    lc_list = random.sample(string.ascii_lowercase, minlchars)
-    n_list = random.sample(string.digits, minnumbers)
-    others_list = random.sample(other_chars, min_other)
-    #join them in one list
-    all_list = uc_list + lc_list + n_list + others_list
-    #if total chars is less than min len, full with printables
-    if len(all_list)<minlen:
-        diff = minlen - len(all_list)
-        diff_list = random.sample(string.printable, diff)
-        password = all_list + diff_list
-    else:
-        password = all_list[:]
-    random.shuffle(password)
-    return ''.join(password)
 
 
 if __name__ == '__main__':
